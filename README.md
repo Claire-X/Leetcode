@@ -1,2 +1,2 @@
 # Leetcode
-My solutions for Leetcode problems
+My accepted submissions on Leetcode
