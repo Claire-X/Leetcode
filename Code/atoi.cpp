@@ -12,8 +12,7 @@ public:
 				break;
 			}
 		}
-		if (!flag)
-			return 0;
+		if (!flag) return 0;
 		int sign = 1;
 
 		if (str[i] == '-') {
