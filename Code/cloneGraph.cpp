@@ -1,5 +1,4 @@
 //BFS
-
 class Solution {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
@@ -22,6 +21,30 @@ public:
                 }
             }
         }
+        return copy[node];
+    }
+};
+
+//DFS
+class Solution {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        if(node==NULL) return NULL;
+        unordered_map<const UndirectedGraphNode *,UndirectedGraphNode *> copy;
+        
+        return clone(node,copy);
+    }
+    
+private:
+    UndirectedGraphNode *clone(UndirectedGraphNode *node,unordered_map<const UndirectedGraphNode *,UndirectedGraphNode *> &copy) {
+        if(copy.find(node)!=copy.end()) return copy[node];
+        copy[node] = new UndirectedGraphNode(node->label);
+        
+        for(auto neighbor:node->neighbors){
+            clone(neighbor,copy);
+            copy[node]->neighbors.push_back(copy[neighbor]);
+        }
+        
         return copy[node];
     }
 };
