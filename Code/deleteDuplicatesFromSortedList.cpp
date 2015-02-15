@@ -1,3 +1,4 @@
+//iteration
 class Solution {
 public:
 	ListNode *deleteDuplicates(ListNode *head) {
@@ -25,4 +26,24 @@ public:
 		}
 		return root->next;
 	}
+};
+//recursion
+class Solution {
+public:
+    ListNode *deleteDuplicates(ListNode *head) {
+        if(!head||!head->next) return head;
+ 
+        if(head->val == head->next->val){
+            int mark = head->val;
+            while(head && head->val == mark){
+                ListNode* tmp = head->next;
+                delete head;
+                head = tmp;
+            }
+            return deleteDuplicates(head);
+        } else{
+            head->next = deleteDuplicates(head->next);
+            return head;
+        }
+    }
 };
