@@ -1,3 +1,30 @@
+//Amelioration
+class Solution {
+public:
+	ListNode *swapPairs(ListNode *head) {
+		if (!head || !head->next)
+			return head;
+
+		ListNode front(0);
+		front.next = head;
+		
+		bool flag = true;
+		
+		ListNode *pre = &front, *i = head, *j = head->next;
+	
+		while (j) {
+			pre->next = j;
+			i->next = j->next;
+			j->next = i;
+			pre = i;
+			i = i->next;
+			if(!i) break;
+			j = i->next;
+		}
+		return front.next;
+	}
+};
+//origin
 class Solution {
 public:
 	ListNode *swapPairs(ListNode *head) {
