@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<string> > solveNQueens(int n) {
+      vector<vector<string> > result;
+      vector<int> path;
+      vector<bool> col(n,false),main(2*n-1,false),counter(2*n-1,false);
+      dfs(n,result,path,col,counter,main);
+      return result;
+    }
+    void dfs(int n,vector<vector<string> > &result,vector<int> &path,vector<bool> &col,vector<bool> &main,vector<bool> &counter){
+        if(path.size() == n){
+            vector<string> r(n,string(n,'.'));
+            for(int i = 0;i<n;i++){
+                r[i].at(path[i])='Q';
+            }
+            result.push_back(r);
+            return;
+        }
+        int row = path.size();
+        for(int i =0;i<n;i++){
+            if(path.size()>0 && abs(i-path.back())<=1) continue;
+            if(col[i] == false&&counter[n-1-row+i]==false&&main[i+row]==false){
+                path.push_back(i);
+                col[i] =true;counter[n-1-row+i]=true;main[i+row]=true;
+                dfs(n,result,path,col,main,counter);
+                path.pop_back();
+                col[i]=false;counter[n-1-row+i]=false;main[i+row]=false;
+            }
+        }
+    }
+};
