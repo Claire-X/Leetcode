@@ -2,45 +2,46 @@ class Solution {
 public:
     vector<string> fullJustify(vector<string> &words, int L) {
         vector<string> result;
-        vector<string> line;
-        size_t length=0;
+        size_t length=0,start=-1,end=-1;
         for(size_t i = 0;i<words.size();i++){
             if((length == 0 && length + words[i].size()<=L) ||length+words[i].size()+1 <=L){
-                line.push_back(words[i]);
+                if(length==0) start = i;
                 length+= length==0?words[i].size():words[i].size()+1;
             }else{
             	i--;
+            	end = i;
             	string s;
-            	if(line.size()==1) {
-            		s+=line[0] + string(L-line[0].size(),' ');
-            	}else{
+            	if(start==end) {
+            		s+=words[start] + string(L-words[start].size(),' ');
+            	}else if(end!=words.size()-1){
 
-            		int space = (L-length +line.size()-1)/(line.size()-1);
-            		int tail = (L-length +line.size()-1)%(line.size()-1);
-            		for(int i =0;i<line.size();i++){
-            			if(i==line.size()-1) {
-            				s+=line[i];
+            		int space = (L-length +end-start)/(end-start);
+            		int tail = (L-length +end-start)%(end-start);
+            		for(int i =start;i<=end;i++){
+            			if(i==end) {
+            				s+=words[i];
             			}
             			else{
-            				s+=(line[i] + string(space,' '));
+            				s+=(words[i] + string(space,' '));
             				if(tail>0) {s+=" ";tail--;}
             			}
             		}
             	}
             	result.push_back(s);
-            	line.clear();
             	length = 0;
+            	start = -1;
+            	end=-1;
             }
         }
-        if(!line.empty()){
+        if(start!=-1){
         	string s;
-        	for(size_t i =0;i<line.size();i++){
-        	     if(i==line.size()-1) {
-        	          s.append(line[i]);
+        	for(size_t i =start;i<words.size();i++){
+        	     if(i==words.size()-1) {
+        	          s.append(words[i]);
         	          s.append(L-s.size(),' ');
         	          result.push_back(s);
         	     }
-        	     else s+= line[i]+" ";
+        	     else s+= words[i]+" ";
         	}
         }
 
