@@ -2,7 +2,7 @@ class Solution {
 public:
     int findMin(vector<int> &num) {
         int first=0, last=num.size()-1,minV = num[0];
-        while(first<last-1){
+        while(first<last-1){//这里用first<first<last-1是为了防止[0,0,1]这种mid和first相等且为最小的情况，相应的最后minV也需要和last比较。如果用下面注释中细分情况来解可改为first<last这时最后minV只需和first比较
             int mid = (first+last)/2;
             
             if(num[first]>num[mid]) last = left(num,mid);
