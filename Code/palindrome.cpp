@@ -1,3 +1,24 @@
+//second time
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        
+        if(x<0) return false;
+        int a =1,b=1;
+        while(x/a>=10) a*=10;
+        int left,right;
+        while(a>b){
+            left = x/a%10;
+            a/=10;
+            right = x/b%10;
+            b*=10;
+            if(right!=left) return false;
+        }
+        return true;
+    }
+};
+
+//first solution
 class Solution {
 public:
 	bool isPalindrome(int x) {
