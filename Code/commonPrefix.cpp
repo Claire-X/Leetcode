@@ -1,9 +1,28 @@
 /*
  * commonPrefix.cpp
  *
- *  Created on: 2015Äê1ÔÂ31ÈÕ
+ *  Created on: 2015Ã„Ãª1Ã”Ã‚31ÃˆÃ•
  *      Author: Claire
  */
+ //vertical
+class Solution {
+public:
+    string longestCommonPrefix(vector<string> &strs) {
+        int i =0;
+        string result;
+        if(!strs.size()) return result;
+        while(1){
+            char c;
+            if(i<strs[0].size()) c= strs[0][i];
+            else return result;
+            for(auto str:strs)
+                if(i>=str.size()||str[i]!=c) return result;
+            result+=c;
+            i++;
+        }
+    }
+};
+ //lateral
 class Solution {
 public:
     string longestCommonPrefix(vector<string> &strs) {
