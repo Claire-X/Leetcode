@@ -1,9 +1,26 @@
 /*
  * palindromeS.cpp
  *
- *  Created on: 2015Äê1ÔÂ31ÈÕ
+ *  Created on: 2015Ã„Ãª1Ã”Ã‚31ÃˆÃ•
  *      Author: Claire
  */
+//second 
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int left = 0,right = s.size()-1;
+        while(left<right){
+            while(left<right&& !isalnum(s[left])) left++;
+            while(left<right&& !isalnum(s[right])) right--;
+            if(tolower(s[left])!=tolower(s[right])) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+};
+
+//first
 class Solution {
 public:
     bool isPalindrome(string s) {
