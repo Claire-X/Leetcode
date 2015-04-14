@@ -1,3 +1,26 @@
+//After two month
+class Solution {
+public:
+    string convert(string s, int nRows) {
+        if(nRows<2 || s.size()<=nRows) return s;
+        vector<string> v(nRows);
+        bool flag;
+        int next = 0;
+        for(auto c:s){
+            v[next]+=c;
+            if(next == nRows-1) flag = false;
+            if(next == 0) flag = true;
+            if(flag) next++;
+            else next--;
+        }
+        string result;
+        for(auto ss:v)
+            result+=ss;
+        return result;
+    }
+};
+
+//first solution
 class Solution {
 public:
 	string convert(string s, int nRows) {
