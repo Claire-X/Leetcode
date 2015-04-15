@@ -1,3 +1,38 @@
+//dfs O(n)
+class Solution {
+public:
+    bool isBalanced(TreeNode *root) {
+        return balance(root)!=-1;
+    }
+    int balance(TreeNode* root){
+        if(!root) return 0;
+        
+        int left = balance(root->left);
+        if(left==-1) return -1;
+        
+        int right = balance(root->right);
+        if(right==-1) return -1;
+        
+        if(abs(left-right)>1) return -1;
+        else return max(left,right)+1;
+    }
+}; 
+
+//second recursion O(n2)
+class Solution {
+public:
+    bool isBalanced(TreeNode *root) {
+        if(!root) return true;
+        if(isBalanced(root->right)&&isBalanced(root->left)&&abs(depth(root->right)-depth(root->left))<=1) return true;
+        else return false;
+    }
+    int depth(TreeNode* root){
+        if(!root) return 0;
+        return max(depth(root->left),depth(root->right))+1;
+    }
+}; 
+
+//first
 class Solution {
 public:
 	bool isBalanced(TreeNode *root) {
