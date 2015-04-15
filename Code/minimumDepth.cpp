@@ -13,15 +13,18 @@ class Solution {
 public:
     int minDepth(TreeNode *root) {
     if(root==NULL) return 0;
-    queue<pair<TreeNode*,int> > q;
-    q.push(make_pair(root,1));
-    while(!q.empty()){
-        TreeNode* n = q.front().first;
-        int depth = q.front().second;
-        if(n->left==NULL && n->right==NULL) return depth;
-        if(n->left) q.push(make_pair(n->left,depth+1));
-        if(n->right) q.push(make_pair(n->right,depth+1));
-        q.pop();
+    queue<TreeNode*> cur,next;
+    int level =1;
+    cur.push(root);
+    while(!cur.empty()){
+        TreeNode* n = cur.front();
+        if(!n->left && !n->right) return level;
+        if(n->left) next.push(n->left);
+        if(n->right) next.push(n->right);
+        cur.pop();
+        if(cur.empty()) {
+            level++;
+            swap(cur,next);}
     }
     }
 };
