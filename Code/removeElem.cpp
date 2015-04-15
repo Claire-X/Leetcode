@@ -1,3 +1,19 @@
+//second
+class Solution {
+public:
+    int removeElement(int A[], int n, int elem) {
+        if (!n) return 0;
+        int i=0,index = n-1;
+        while(i<=index){
+            if(A[i]==elem){
+                if(i==index) break;
+                swap(A[i],A[index--]);
+            }else i++;
+        }
+        return i;
+    }
+};
+//first
 class Solution {
 public:
     int removeElement(int A[], int n, int elem) {
