@@ -1,3 +1,26 @@
+//second
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int i=a.size()-1,j=b.size()-1;
+        int carry = 0;
+        string s;
+        while(i>=0||j>=0){
+            int x = i>=0?a[i]-'0':0;
+            int y = j>=0?b[j]-'0':0;
+            int sum = (carry+x+y)%2;
+            carry = (carry+x+y)/2;
+            s+= sum+'0';
+            i--;j--;
+        }
+        if(carry) s+='1';
+        reverse(s.begin(),s.end());
+        return s;
+    }
+};
+
+
+//first
 class Solution {
 public:
 	string addBinary(string a, string b) {
