@@ -1,3 +1,4 @@
+// if delete function is needed, add a int share in TrieNode, once share = 0, delete the trie whose root is the current node
 class TrieNode {
 public:
     // Initialize your data structure here.
