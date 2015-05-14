@@ -13,6 +13,21 @@ public:
         return result;
     }
 };
+
+class Solution {
+public:
+    void preorder(vector<int> &result, TreeNode *root){
+        if(!root) return;
+        result.push_back(root->val);
+        preorder(result,root->left);
+        preorder(result,root->right);
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        preorder(result,root);
+        return result;
+    }
+};
 //iteration
 class Solution {
 public:
