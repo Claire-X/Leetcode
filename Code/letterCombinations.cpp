@@ -1,3 +1,24 @@
+//second time
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> dict{" ","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        vector<string> result{""},tmp;
+        for(char d:digits){
+            for(char c: dict[d-'0']){
+            	for(string s:result){
+            		tmp.push_back(s+=c);
+                    s.pop_back();
+                }
+            }
+            result.clear();
+            swap(result,tmp);
+         }
+        if(result.size()==1) result.pop_back();
+        return result;
+    }
+};
+//first time
 class Solution {
 public:
     vector<string> letterCombinations(string digits) {
