@@ -1,3 +1,31 @@
+//second
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        string cur;
+        generate(0,0,n,result,cur);
+        return result;
+    }
+    void generate(int left, int right, int n, vector<string> &result,string &cur){
+        if(left>n) return;
+        if(left == n&&right == n){
+                result.push_back(cur);
+                return;
+            }
+        if(left>right) {
+            cur.push_back(')');
+            generate(left,right+1,n,result,cur);
+            cur.pop_back();
+        }
+        cur.push_back('(');
+        generate(left+1,right,n,result,cur);
+        cur.pop_back();
+    }
+    
+};
+
+//first
 class Solution {
 public:
 	vector<string> generateParenthesis(int n) {
