@@ -1,3 +1,36 @@
+//second 12ms map will be faster
+class Solution {
+public:
+    string fractionToDecimal(int numerator, int denominator) {
+        if(numerator==0) return "0";
+        bool neg = (numerator>>31)^(denominator>>31);
+        long long n = abs((long long)numerator);
+        long long d = abs((long long)denominator);
+        long long digit = n/d;
+        n=n%d*10;
+        string result;
+        string integer(to_string(digit));
+        vector<int> digits;
+        while(n){
+            auto it = find_if(digits.begin(),digits.end(),bind1st(equal_to<int>(),n));
+            if(it!=digits.end()){
+                result.insert(distance(digits.begin(),it),1,'(');
+                result+=')';
+                break;
+            }else digits.push_back(n);
+            digit = n/d;
+            result+= digit+'0';
+            n=n%d*10;;
+        }
+        if(neg) integer.insert(integer.begin(),1,'-');
+        if(result.size()) {
+            integer+='.';
+            return integer+=result;
+        }else return integer;
+        
+    }
+};
+//first 4ms
 class Solution {
 public:
 	string fractionToDecimal(int numerator, int denominator) {
