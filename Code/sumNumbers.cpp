@@ -2,20 +2,11 @@
 class Solution {
 public:
     int sumNumbers(TreeNode *root) {
-        string cur;
-        return dfs(root,cur);;
-    }
-    
-    int dfs(TreeNode *root,string cur){
         if(!root) return 0;
-        cur+=root->val+'0';
-        int result = 0;
-        if(root->left) result+=dfs(root->left,cur);
-        if(root->right) result+=dfs(root->right,cur);
-        if(!root->right && !root->left)
-            for(char c:cur)
-                result=result*10+(c-'0');
-        return result;
+        if(!root->left&&!root->right) return root->val;
+        if(root->left) root->left->val += root->val*10;
+        if(root->right) root->right->val += root->val*10;
+        return sumNumbers(root->left)+sumNumbers(root->right);
     }
 };
 
