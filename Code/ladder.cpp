@@ -1,3 +1,35 @@
+//Second time
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordDict) {
+        queue<string> cur,next;
+        cur.push(beginWord);
+        int level = 1,l=beginWord.length();
+        unordered_set<string> visit;
+
+        while(!cur.empty()){
+            while(!cur.empty()){
+                string w = cur.front();
+                cur.pop();
+                for(int i =0;i<l;i++)
+                    for(int j =0;j<26;j++){
+                        char c = 'a'+j;
+                        if(c == w[i]) continue;
+                        swap(c,w[i]);
+                        if (w == endWord) return level+1;
+                        if(wordDict.find(w)!=wordDict.end())
+                            {next.push(w);
+                            wordDict.erase(w);}
+                        swap(c,w[i]);
+                    }
+            }
+            level++;
+            swap(cur,next);
+        }
+        return 0;
+    }
+};
+//first
 class Solution {
 public:
     int ladderLength(string start, string end, unordered_set<string> &dict) {
