@@ -1,3 +1,24 @@
+//second
+class Solution {
+public:
+    int numDecodings(string s) {
+        int n = s.size();
+        if(!n) return 0;
+        int f[n+1];
+        fill_n(f,n+1,0);
+        f[0]=1;
+        if(s[0]=='0') return 0;
+        else f[1]=1;
+        for(int i =2;i<=n;i++){
+            if(s[i-1]!='0')
+                f[i]+=f[i-1];
+            if(s[i-2]!='0'&&stoi(s.substr(i-2,2))<=26)
+                f[i]+=f[i-2];
+        }
+        return f[n];
+    }
+};
+//first
 class Solution {
 public:
     int numDecodings(string s) {
