@@ -1,3 +1,39 @@
+//third
+class Solution {
+public:
+	vector<string> restoreIpAddresses(string s) {
+		vector<string> result;
+		string cur;
+		dfs(s, cur, 0, 1, result);
+		return result;
+	}
+private:
+	void dfs(string& s, string cur, int pre, int step,vector<string> &result) {
+		if(step == 5){
+		    if(pre==s.size()){
+		        cur.pop_back();
+		        result.push_back(cur);
+		    }
+		    return;
+		}
+		if(pre>=s.size()) return;
+		if(s[pre]=='0'){
+		    string ss = cur;
+		    ss+="0.";
+		    dfs(s,ss,pre+1,step+1,result);
+		}
+		else{
+		    for(int l = 1;l<=3;l++){
+		        if((l+pre<=s.size()) && stoi(s.substr(pre,l))<=255){
+		            string ss = cur;
+		            ss+=s.substr(pre,l);
+		            ss+=".";
+		            dfs(s,ss,pre+l,step+1,result);
+		        }
+		    }
+		}
+	}
+};
 //modification of first
 class Solution {
 public:
