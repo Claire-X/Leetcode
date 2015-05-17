@@ -1,3 +1,23 @@
+//second
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return divide(inorder,0,inorder.size()-1,postorder,0,postorder.size()-1);
+    }
+    TreeNode* divide(vector<int>& in, int istart,int iend,vector<int>& post,int pstart,int pend){
+        if(istart>iend) return NULL;
+        TreeNode* root = new TreeNode(post[pend]);
+        int i = istart;
+        for(;i<=iend;i++)
+            if(in[i]==root->val)
+                break;
+        int ll = i-istart,rl = iend-i;
+        if(ll>0) root->left = divide(in,istart,istart+ll-1,post,pstart,pstart+ll-1);
+        if(rl>0) root->right = divide(in,i+1,i+rl,post,pend-rl,pend-1);
+        return root;
+    }
+};
+
 //iterator
 class Solution {
 public:
