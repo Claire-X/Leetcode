@@ -1,3 +1,21 @@
+//second 
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode dummy(0),*pre=&dummy;
+        dummy.next = head;
+        while(head&&head->next){
+            ListNode *n = head->next->next;
+            pre->next = head->next;
+            head->next->next = head;
+            head->next = n;
+            pre = head;
+            head = n;
+        }
+        return dummy.next;
+    
+    }
+};
 //Amelioration
 class Solution {
 public:
