@@ -11,27 +11,38 @@ public:
     }
 };
 
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int cur=0,maxSum=INT_MIN;
+        for(int i=0;i<nums.size();i++){
+            cur+=nums[i];
+            maxSum = max(cur,maxSum);
+            if(cur<0) cur=0;
+        }
+        return maxSum;
+    }
+};
 //Divide and conquer
 class Solution {
 public:
-    int maxSubArray(int A[], int n) {
-        return maxSubArray(A,0,n);
+    int maxSubArray(vector<int>& nums) {
+        return maxsub(nums,0,nums.size()-1);
     }
-private:
-    int maxSubArray(int A[], int start, int end){
-        if(start >= end) return INT_MIN;
-        int mid = (start+end)/2,left = A[mid],right = A[mid];
-        int maxLeft=A[mid],maxRight=A[mid];
-        for(int i = mid-1;i>=start;i--){
-            left += A[i];
-            maxLeft = max(maxLeft,left);
+    int maxsub(vector<int>& nums,int start, int end){
+        if(start == end) return nums[start];
+        int mid = (start+end)/2;
+        int lm=0,rm=0,left=0,right=0;
+        for(int i=mid-1;i>=start;i--){
+            left+=nums[i];
+            lm=max(lm,left);
         }
-        for(int j = mid+1;j<end;j++){
-            right += A[j];
-            maxRight = max(maxRight,right);
+        for(int i=mid+1;i<=end;i++){
+            right+=nums[i];
+            rm = max(rm,right);
         }
-        int max_sum = max(maxSubArray(A,start,mid),maxSubArray(A,mid+1,end));
-        max_sum = max(max_sum,maxRight+maxLeft-A[mid]);
-        return max_sum;
+        int m = max(maxsub(nums,start,mid),maxsub(nums,mid+1,end));
+        m = max(rm+lm+nums[mid],m);
+        return m;
     }
 };
