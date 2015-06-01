@@ -12,6 +12,17 @@ public:
     }
 };
 
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int reach=0;
+        for(int i=0;i<nums.size()&&i<=reach;i++){
+            reach = max(reach,i+nums[i]);  
+        }
+        return reach>=nums.size()-1;
+    }
+};
+
 //DP 达到i有两种方法，经过i-1和不经过。对比走楼梯
 
 class Solution {
