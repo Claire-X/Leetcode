@@ -1,3 +1,50 @@
+//second
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if(num1=="0"||num2=="0") return "0";
+        if(num1.size()<num2.size()) swap(num1,num2);
+        int j = num2.size()-1;
+        vector<string> tmp;
+        while(j>=0){
+            string m;
+            int b = num2[j]-'0';
+            int carry =0;
+            for(int i=num1.size()-1;i>=0;i--){
+                int a = num1[i]-'0';
+                m+=(a*b+carry)%10+'0';
+                carry = (a*b+carry)/10;
+            }
+             if(carry) m+=carry+'0';
+             reverse(m.begin(),m.end());
+             for(int k=num2.size()-1;k>j;k--)
+                m+='0';
+             tmp.push_back(m);
+             j--;
+        }
+        string result=tmp[0];
+        for(int i=1;i<tmp.size();i++){
+            result = add(result,tmp[i]);
+        }
+        return result;
+    }
+    string add(string num1, string num2){
+       int i = num1.size()-1,j = num2.size()-1;
+        string result;
+        int carry = 0;
+        while(i>=0 || j>=0){
+            int a = i<num1.size()?num1[i]-'0':0;
+            int b = j<num2.size()?num2[j]-'0':0;
+            result+=(a+b+carry)%10+'0';
+            carry = (a+b+carry)/10;
+            i--;j--;
+        }
+        if(carry) result+=carry+'0';
+        reverse(result.begin(),result.end());
+        return result;
+    }
+};
+//first
 class Solution {
 public:
     string multiply(string num1, string num2) {
