@@ -1,3 +1,36 @@
+//better solution, perform the multiplication and the addtion simultaneously
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if(num1=="0" || num2=="0")
+            return "0";
+        int l1 = num1.size(),l2=num2.size();
+        vector<int> v(l1+l2,0);
+        for(int i=0;i<l1;i++){
+            int carry = 0;
+            int a = num1[l1-1-i]-'0';
+            int j=0;
+            for(;j<l2;j++){
+                int b = num2[l2-1-j]-'0';
+                int sum = a*b+carry+v[i+j];
+                v[i+j] = sum%10;
+                carry = sum/10;
+            }
+            while(carry>0) {
+                int a = v[i+j];
+                v[i+j] = (a+carry)%10;
+                carry = (a+carry)/10;
+                j++;
+            }
+        }
+        string result;
+        int i = l1+l2-1;
+        while(v[i]==0) i--;
+        for(;i>=0;i--)
+            result+=v[i]+'0';
+        return result;
+    }
+};
 //second
 class Solution {
 public:
