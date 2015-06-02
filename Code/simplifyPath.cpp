@@ -1,3 +1,31 @@
+//second
+class Solution {
+public:
+    string simplifyPath(string path) {
+        if(path.size()==0) return "";
+        stack<string> stk;
+        for(int i=0;i<path.size();i++){
+            if(path[i]=='/') continue;
+            int start = i;
+            while(i<path.size()&&path[i]!='/') i++;
+            string f = path.substr(start,i-start);
+            if(f==".."){
+                if(!stk.empty())
+                    stk.pop();
+            } else if(f!=".") stk.push(f);
+        }
+        if(stk.empty()) return "/";
+        string sp;
+        while(!stk.empty()){
+            string s = stk.top();
+            sp.insert(0,s);
+            sp.insert(0,1,'/');
+            stk.pop();
+        }
+        return sp;
+    }
+};
+//first
 class Solution {
 public:
     string simplifyPath(string path) {
