@@ -68,3 +68,26 @@ public:
 
 	}
 };
+//O(m)
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        if(!n) return;
+        int m=matrix[0].size();
+        if(!m) return;
+        vector<bool> zero(m,false);
+        for(int i=0;i<n;i++){
+            bool flag=false;
+            for(int j=0;j<m;j++)
+                if(matrix[i][j]==0) {
+                    zero[j]=true;
+                    flag = true;}
+            if(flag) fill_n(&matrix[i][0],m,0);
+        }
+        for(int j=0;j<matrix[0].size();j++)
+            if(zero[j])
+                for(int i=0;i<matrix.size();i++)
+                    matrix[i][j]=0;
+    }
+};
