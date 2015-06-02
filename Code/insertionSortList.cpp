@@ -1,3 +1,29 @@
+//second
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        if(!head||!head->next) return head;
+        ListNode dummy(0),*pre = head;
+        dummy.next = head;
+        head = head->next;
+        while(head){
+            if(head->val>=pre->val) {
+                pre=head;
+                head=head->next;
+                continue;
+            }
+            pre->next = head->next;
+            ListNode *pos = &dummy;
+            while(pos->next->val<head->val)
+                pos = pos->next;
+            head->next = pos->next;
+            pos->next = head;
+            head = pre->next;
+        }
+        return dummy.next;
+    }
+};
+//first
 class Solution {
 public:
     ListNode *insertionSortList(ListNode *head) {
