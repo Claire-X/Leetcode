@@ -1,3 +1,5 @@
+//two pointer left and right, only consider the results between them; if h[left]<h[right], move the right pointer won't make the 
+//area greater, only possibility is to move left to right
 class Solution {
 public:
     int maxArea(vector<int> &height) {
