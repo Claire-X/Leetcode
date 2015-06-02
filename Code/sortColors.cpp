@@ -18,13 +18,15 @@ public:
 };
 
 //Dual pointer
+//可以借鉴用来partition，把比一个数小的看做0 大的看做2
+
 class Solution {
 public:
     void sortColors(int A[], int n) {
         int red = 0, blue=n-1;
         for(int i =0;i<=blue;){
             if(A[i]==0)
-                swap(A[i++],A[red++]);
+                swap(A[i++],A[red++]); //从red换过来的只可能是0或者1但是从blue换过来需要检验
             else if(A[i]==2)
                 swap(A[i],A[blue--]);
             else i++;
