@@ -15,26 +15,21 @@ public:
 //binary search 
 class Solution {
 public:
-    vector<int> searchRange(int A[], int n, int target) {
-        int end=n-1,begin=0,mid;
-        while(end>=begin){
-            mid = (end+begin)/2;
-            if(A[mid] == target) break;
-            else if(A[mid]>target) end = mid-1;
-            else begin = mid+1;
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int left=0,right=nums.size()-1,mid;
+        while(left<=right){
+            mid  =  (left+right)/2;
+            if(nums[mid]==target)
+                break;
+            if(nums[mid]<target)
+                left=mid+1;
+            else right = mid-1;
         }
-        if(A[mid] != target) return vector<int>{-1,-1};
-
-        end = begin = mid;
-        while(A[end] == target){
-            end++;
-            if(end == n) break;
-        }
-        while(A[begin] == target) {
-            begin--;
-            if(begin==-1) break;
-        }
-        return vector<int>{begin+1,end-1};
+        if(left>right) return vector<int>{-1,-1};
+        int r=mid,l=mid;
+        while(nums[r]==target&&r<nums.size()) r++;
+        while(nums[l]==target && l>=0) l--;
+        return vector<int>{++l,--r};
     }
 };
 
