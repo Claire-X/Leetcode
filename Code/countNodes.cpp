@@ -1,3 +1,4 @@
+//O(logN*logN)
 class Solution {
 public:
     int countNodes(TreeNode* root) {
