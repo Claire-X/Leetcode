@@ -1,3 +1,45 @@
+//second
+class Solution {
+public:
+    vector<vector<string> > solveNQueens(int n) {
+        vector<bool> v(n,false),d(2*n-1,false),rd(2*n-1,false);
+        vector<vector<string> > result;
+        vector<int> path;
+        dfs(path,v,d,rd,result);
+        return result;
+    }
+    void dfs(vector<int> &path,vector<bool> &v,vector<bool> &d,vector<bool> &rd,vector<vector<string>> &result){
+    	int n = v.size();
+        if(path.size()==n){
+            vector<string> re;
+            for(int i=0;i<n;i++){
+                string s;
+                for(int j=0;j<n;j++)
+                    if(j==path[i])
+                        s+='Q';
+                    else s+='.';
+                re.push_back(s);
+            }
+            result.push_back(re);
+            return;
+        }
+        int i = path.size();
+        for(int j=0;j<n;j++)
+            if(!v[j]&&!d[i-j+n-1]&&!rd[i+j]){
+                v[j] = true;
+                d[i-j+n-1] = true;
+                rd[i+j] = true;
+                path.push_back(j);
+                dfs(path,v,d,rd,result);
+                v[j] = false;
+                d[i-j+n-1] = false;
+                rd[i+j] = false;
+                path.pop_back();
+            }
+    }
+};
+
+//first
 class Solution {
 public:
     vector<vector<string> > solveNQueens(int n) {
