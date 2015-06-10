@@ -44,57 +44,32 @@ public:
 
 };
 
-//第一次写，代码过于冗余
+//O(log(m+n)
 class Solution {
 public:
-	double findMedianSortedArrays(int A[], int m, int B[], int n) {
-		if (m == 0 && n == 0)
-			return NULL;
-		bool flag = (m + n) % 2 == 0 ? false : true;
-		int mid = (m + n) % 2 == 0 ? (m + n) / 2 : (m + n) / 2 + 1;
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size(),n=nums2.size();
+        if(m>n) {swap(nums1,nums2);
+                swap(m,n);}
+        int imin = 0, imax = m,i,j;
+        while(imin<=imax){
+            i =(imin+imax)/2;
+            j=(m+n+1)/2-i;
+            if(j>0 && i<m && nums2[j-1]>nums1[i]) imin = i+1;
+            else if(i>0 && j<n && nums1[i-1]>nums2[j]) imax=i-1;
+            else break;
+        }
+        int num1,num2;
+        if(i==0) num1 = nums2[j-1];
+        else if(j==0) num1 = nums1[i-1];
+        else num1 = max(nums1[i-1],nums2[j-1]);
+        if((m+n)%2) return num1;
+        
+        if(i>=m) num2 = nums2[j];
+        else if(j>=n) num2 = nums1[i];
+        else num2 = min(nums1[i],nums2[j]);
+        
+        return (num1+num2)/2.0;
 
-		int i = 0, j = 0;
-		while (i < m && j < n) {
-			if (A[i] <= B[j]) {
-				i++;
-				if (i + j == mid) {
-					if (flag)
-						return A[i - 1];
-					else {
-						if (i < m)
-							return (A[i - 1] + (A[i] <= B[j] ? A[i] : B[j]))
-									/ 2.0;
-						else
-							return (A[i - 1] + B[j]) / 2.0;
-					}
-				}
-			} else {
-				j++;
-				if (i + j == mid) {
-					if (flag)
-						return B[j - 1];
-					else {
-						if (j < n)
-							return (B[j - 1] + (B[j] <= A[i] ? B[j] : A[i]))
-									/ 2.0;
-						else
-							return (B[j - 1] + A[i]) / 2.0;
-					}
-				}
-			}
-		}
-
-		if (i < m && j == n) {
-			if (flag)
-				return A[mid - j - 1];
-			else
-				return (A[mid - j - 1] + A[mid - j]) / 2.0;
-		}
-		if (i == m && j < n) {
-			if (flag)
-				return B[mid - i - 1];
-			else
-				return (B[mid - i - 1] + B[mid - i]) / 2.0;
-		}
-	}
+    }
 };
