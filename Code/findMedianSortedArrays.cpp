@@ -35,13 +35,35 @@ public:
         if(m>n) return findK(B,n,A,m,k);
         if(m==0) return B[k-1];
         if(k==1) return min(A[0],B[0]);
-        int a = k/2>m? m:k/2-1;
+        int a = k/2>m? m:k/2-1; //待验a = k/2>m? m:k/2;
         int b = k-a;
         if(B[b-1]<A[a-1]) return findK(A,m,B+b,n-b,k-b);
         if(B[b-1]>A[a-1]) return findK(A+a,m-a,B,n,k-a);
         else return A[a-1];
     }
 
+};
+
+class Solution {
+public:
+
+    int findk(vector<int>::iterator A, int m, vector<int>::iterator B, int n, int k){
+        if(m>n) return findk(B,n,A,m,k);
+        if(m==0) return *(B+k-1);
+        if(k==1) return min(*B,*A);
+        int a = k/2>m? m:k/2;
+        int b = k-a;
+        if(*(A+a-1)>*(B+b-1)) return findk(A,m,B+b,n-b,k-b);
+        else if(*(A+a-1)< *(B+b-1)) return findk(A+a,m-a,B,n,k-a);
+        else return *(A+a-1);
+    }
+
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+            int m = nums1.size();
+            int n = nums2.size();
+            int k =(m+n)/2;
+            return (m+n)%2? findk(nums1.begin(),m,nums2.begin(),n,k+1):(findk(nums1.begin(),m,nums2.begin(),n,k)+findk(nums1.begin(),m,nums2.begin(),n,k+1))/2.0;
+        }
 };
 
 class Solution {
