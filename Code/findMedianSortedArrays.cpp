@@ -44,7 +44,6 @@ public:
 
 };
 
-//O(log(m+n)
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
@@ -59,17 +58,17 @@ public:
             else if(i>0 && j<n && nums1[i-1]>nums2[j]) imax=i-1;
             else break;
         }
-        int num1,num2;
-        if(i==0) num1 = nums2[j-1];
-        else if(j==0) num1 = nums1[i-1];
-        else num1 = max(nums1[i-1],nums2[j-1]);
-        if((m+n)%2) return num1;
+        int l,r;
+        if(i==0) l = nums2[j-1];
+        else if(j==0) l = nums1[i-1];
+        else l = max(nums1[i-1],nums2[j-1]);
+        if((m+n)%2) return l;
         
-        if(i>=m) num2 = nums2[j];
-        else if(j>=n) num2 = nums1[i];
-        else num2 = min(nums1[i],nums2[j]);
+        if(i>=m) r = nums2[j];
+        else if(j>=n) r = nums1[i];
+        else r = min(nums1[i],nums2[j]);
         
-        return (num1+num2)/2.0;
+        return (r+l)/2.0;
 
     }
 };
