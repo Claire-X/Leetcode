@@ -1,3 +1,36 @@
+//second
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> res;
+        if(!n) return res; 
+        sort(nums.begin(),nums.end());
+        vector<bool> select(n,false);
+        vector<int> cur;
+        dfs(res,nums,select,cur);
+        return res;
+    }
+    void dfs(vector<vector<int>> &res,vector<int>& nums, vector<bool> &select,vector<int> &cur){
+        if(cur.size()==nums.size()){
+            res.push_back(cur);
+            return;
+        }
+        for(auto it = nums.begin();it!=nums.end();){
+            int i = distance(nums.begin(),it);
+            if(!select[i]){
+                select[i] = true;
+                cur.push_back(*it);
+                dfs(res,nums,select,cur);
+                cur.pop_back();
+                select[i]=false;
+                it=upper_bound(it,nums.end(),*it);
+            }else it++;
+        }
+    }
+};
+
+//first
 class Solution {
 public:
     vector<vector<int> > permuteUnique(vector<int> &num) {
