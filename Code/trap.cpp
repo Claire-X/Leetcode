@@ -1,4 +1,23 @@
-//遍历数组，用一个栈来维护递减序列，一旦一个元素大于其左元素，则形成坑，那么把这个坑填平，再接着遍历。
+//the volume of water in a certian position depends on the maximum height at the left and at the left
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int max_left=0,max_right=0,l=0,r=height.size()-1,water=0;
+        while(l<=r){
+            if(max_left<max_right){
+                if(height[l]<max_left) water+=max_left-height[l];
+                else max_left=height[l];
+                l++;
+            }else{
+                if(height[r]<max_right) water+=max_right-height[r];
+                else max_right=height[r];
+                r--;
+            }
+        }
+        return water;
+    }
+};
+/遍历数组，用一个栈来维护递减序列，一旦一个元素大于其左元素，则形成坑，那么把这个坑填平，再接着遍历。
 class Solution {
 public:
     int trap(int A[], int n) {
