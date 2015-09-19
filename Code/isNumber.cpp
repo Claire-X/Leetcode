@@ -1,3 +1,38 @@
+//divide the number on the position of 'e', the left part should be a float and the right part should be an integer
+class Solution {
+public:
+    bool isNumber(string s) {
+        int i =0,j=s.size()-1;
+        while (i<s.size() && s[i]==' ') i++;
+        while (j>=0 && s[j]==' ') j--;
+        s = s.substr(i,j-i+1);
+        i=0;
+        while(i<s.size() && s[i]!= 'e') i++;
+        
+        if(i!=s.size()){
+            string left = s.substr(0,i),right = s.substr(i+1,s.size()-i-1);
+            return isNumber(left,true)&&isNumber(right,false);
+        }else return isNumber(s,true);
+    }
+    bool isNumber(string s,bool left){
+        if(s.size()==0) return false;
+        if(s[0] == '+' || s[0]=='-') s = s.substr(1,s.size()-1);
+        if(s.size()==0) return false;
+        bool dot=false;
+        
+        for(int i = 0;i<s.size();i++){
+            if(isdigit(s[i])) continue;
+            else if(s[i]=='.' && left){
+                if(dot) return false;
+                dot = true;
+                if((i>0 && isdigit(s[i-1])) || (i<s.size()-1 && isdigit(s[i+1]))) continue;
+                else return false;
+            }else return false;
+        }
+        
+        return true;
+    }
+};
 class Solution {
 public:
     bool isNumber(string s) {
