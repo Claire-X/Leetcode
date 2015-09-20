@@ -1,3 +1,61 @@
+//second time
+class Solution {
+  public:
+      vector<string> fullJustify(vector<string>& words, int maxWidth) {
+          vector<string> res;
+          int n = words.size(),l = 0,i=0;
+          while(i<n){
+              int j = i;
+              l=0;
+              while(j<n){
+                  if((int)words[j].size() <= maxWidth-(l+j-i)){
+                      l+=words[j].size();
+                      j++;
+                  }else if(j>i+1){
+                	  j--;
+                      int space = (maxWidth-l)/(j-i);
+                      int leftspace = (maxWidth-l)%(j-i);
+                      string line;
+                      for(;i<=j;i++){
+                          line+=words[i];
+                          if(i!=j){
+                              int s=0;
+                              while(s++<space) line+=' ';
+                              if(leftspace>0) {line+=' ';leftspace--;}
+                          }
+                      }
+                      res.push_back(line);
+                      break;
+                  }else {
+                	  j--;
+                	  string line=words[i];
+                	  int space = maxWidth-words[i].size();
+                	  while(space--) line+=" ";
+                	  res.push_back(line);
+                	  break;
+                  }
+              }
+              if(j<n) i = j+1;
+              else {//if(maxWidth>=(l+j-i)){
+                  string line;
+                  for(;i<n;i++){
+                      line+=words[i];
+                      if(i!=n-1) line+=" ";
+                      else{
+                    	  int s = maxWidth-line.size();
+                    	  while(s--) line+=" ";
+                      }
+                  }
+
+                  res.push_back(line);
+                  break;
+              }
+          }
+          return res;
+      }
+  };
+  
+//First
 class Solution {
 public:
     vector<string> fullJustify(vector<string> &words, int L) {
