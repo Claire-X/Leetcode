@@ -1,3 +1,36 @@
+//第二种写法的代码精简 generalize the 3 cases in the second into one single loop 
+class Solution {
+  public:
+      vector<string> fullJustify(vector<string>& words, int maxWidth) {
+          vector<string> res;
+          int n = words.size(),l = 0,i=0;
+          while(i<n){
+              int j = i;
+              l=0;
+              while(j<=n){
+                  if(j<n && (int)words[j].size() <= maxWidth-(l+j-i)){
+                      l+=words[j].size();
+                      j++;
+                  }else{
+                	  j--;
+                      string line = words[i];
+                      for(int k = 0;k<j-i;k++){
+                          if(j<n-1){
+                            line+=string((maxWidth-l)/(j-i),' ');
+                            if(k<(maxWidth-l)%(j-i)) line+=' ';}
+                          else line+=" "; 
+                        line+=words[i+k+1];
+                      }
+                	  line+=string(maxWidth-line.size(),' ');
+                      res.push_back(line);
+                      break;
+                  }
+              }
+              i = j+1;
+          }
+          return res;
+      }
+  };
 //second time
 class Solution {
   public:
@@ -11,7 +44,7 @@ class Solution {
                   if((int)words[j].size() <= maxWidth-(l+j-i)){ //spent an hour for this bug :( pay attention to
                       l+=words[j].size();                       // the comparison between size_t amd int, especially when                     
                       j++;                                      //negtive value is involved.                                    
-                  }else if(j>i+1){
+                  }else if(j>i+1){ //case 1: line contains more than one word
                 	  j--;
                       int space = (maxWidth-l)/(j-i);
                       int leftspace = (maxWidth-l)%(j-i);
@@ -25,7 +58,7 @@ class Solution {
                       }
                       res.push_back(line);
                       break;
-                  }else {
+                  }else {//case 2: line contains only one word
                 	  j--;
                 	  string line=words[i];
                 	  int space = maxWidth-words[i].size();
@@ -35,7 +68,7 @@ class Solution {
                   }
               }
               if(j<n) i = j+1;
-              else {//if(maxWidth>=(l+j-i)){
+              else {//case 3: the last line
                   string line;
                   for(;i<n;i++){
                       line+=words[i];
