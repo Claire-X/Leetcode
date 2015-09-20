@@ -8,9 +8,9 @@ class Solution {
               int j = i;
               l=0;
               while(j<n){
-                  if((int)words[j].size() <= maxWidth-(l+j-i)){
-                      l+=words[j].size();
-                      j++;
+                  if((int)words[j].size() <= maxWidth-(l+j-i)){ //spent an hour for this bug :( pay attention to
+                      l+=words[j].size();                       // the comparison between size_t amd int, especially when                     
+                      j++;                                      //negtive value is involved.                                    
                   }else if(j>i+1){
                 	  j--;
                       int space = (maxWidth-l)/(j-i);
@@ -19,8 +19,7 @@ class Solution {
                       for(;i<=j;i++){
                           line+=words[i];
                           if(i!=j){
-                              int s=0;
-                              while(s++<space) line+=' ';
+                              line+=string(space,' ');                                    //constructor of string
                               if(leftspace>0) {line+=' ';leftspace--;}
                           }
                       }
@@ -30,7 +29,7 @@ class Solution {
                 	  j--;
                 	  string line=words[i];
                 	  int space = maxWidth-words[i].size();
-                	  while(space--) line+=" ";
+                	  line+=string(space,' ');
                 	  res.push_back(line);
                 	  break;
                   }
@@ -41,12 +40,8 @@ class Solution {
                   for(;i<n;i++){
                       line+=words[i];
                       if(i!=n-1) line+=" ";
-                      else{
-                    	  int s = maxWidth-line.size();
-                    	  while(s--) line+=" ";
-                      }
+                      else line+=string(maxWidth-line.size(),' ');
                   }
-
                   res.push_back(line);
                   break;
               }
