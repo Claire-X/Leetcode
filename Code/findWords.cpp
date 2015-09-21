@@ -1,3 +1,68 @@
+//second
+class TrieNode{
+  public:
+          bool end;
+          TrieNode* child[26];
+          TrieNode(){
+              end = false;
+              fill_n(child,26,nullptr);//important
+          }
+  };
+
+  class Trie{
+      public:
+          TrieNode* root;
+          Trie(){
+              root = new TrieNode;
+          }
+          void insert(string s){
+              TrieNode *n = root;
+              for(int i=0;i<s.size();i++){
+                  int index = s[i]-'a';
+                  if(!n->child[index])
+                      n->child[index] = new TrieNode;
+                  n = n->child[index];
+              }
+              n->end = true;
+          }
+  };
+
+  class Solution {
+  public:
+      vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+          vector<string> res;
+          int m = board.size();
+          if(!m) return res;
+          int n = board[0].size();
+          if(!n) return res;
+          Trie t;
+          for(string s:words){
+              t.insert(s);
+          }
+          string s;
+          for(int i=0;i<m;i++)
+        	  for(int j =0;j<n;j++)
+        		  check(board,t.root,res,i,j,s);
+          return res;
+
+      }
+      void check(vector<vector<char>>& board,TrieNode* n,vector<string> &res,int i,int j,string &word){
+          if(i<0 || i>=board.size() || j<0 || j>=board[0].size()) return;
+          int index = board[i][j]-'a';
+          if(index<0||!n->child[index]) return;
+          word+=board[i][j];
+          board[i][j] = '*';
+          n = n->child[index];
+          if(n->end) {n->end = false;res.push_back(word);}
+          int diff[2][4] = {{0,1,0,-1},{1,0,-1,0}};
+          for(int k=0;k<4;k++)
+            check(board,n,res,i+diff[0][k],j+diff[1][k],word);
+          board[i][j] = word.back();
+          word.pop_back();
+      }
+  };
+  
+  //first
 class TrieNode{
 public:
     bool end;
