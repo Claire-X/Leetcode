@@ -1,5 +1,6 @@
 //DP 本行的左边界为 上一行左边界 与 左边最近的0位置 之间的最大值 即max(left,l[j]).同理得到右边界
 // 以i行为基准h[j]高的直方面积因此为h[j]*(r[j]-l[j])
+//2016-4-25 update: 每次计算的是matrix[i][j]位置高度最高的rectangle，而非面积最大的。这样每个rectangle都会被计算到至少一次，并更新maxArea变量
 class Solution {
 public:
     int maximalRectangle(vector<vector<char> > &matrix) {
