@@ -1,4 +1,4 @@
-//n
+//O(n)
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
