@@ -1,4 +1,5 @@
 //O(n) 与longest valid parenthesis思路类似 已出栈元素已经处理过（满足某条件或某种量度上优于内元素）因此处理新出栈元素可以算上他们
+//2016-4-25更新：对于高度h，仅在后方出现比h小的直方时需要计算这个高度的rectagle，即对于每个h，只计算宽度最大的rectangle。
 class Solution {
 public:
     int largestRectangleArea(vector<int> &height) {
