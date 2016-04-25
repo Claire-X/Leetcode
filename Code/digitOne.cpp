@@ -15,7 +15,7 @@ public:
     }
 };
 
-//Solution 2: 逐位数1，千位1个数+百位1个数+...
+//Solution 2: 逐位数1，千位1个数 + 百位1个数 + ...
 class Solution {
 public:
     int countDigitOne(int n) {
